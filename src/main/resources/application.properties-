@@ -1,0 +1,7 @@
+server.port=8081  
+
+app.welcome-text=Hello World from fathur
+app.timezone=Asia/Jakarta
+app.currency=IDR
+
+cloud.api-key=${JAVA_HOME}
