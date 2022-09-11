@@ -13,13 +13,18 @@ import lombok.Data;
 @Data
 @MappedSuperclass
 @Table(indexes = {
-	@Index(name="uk_secure_id", columnList = "secure_id")
+		@Index(name="uk_secure_id", columnList = "secure_id")
 })
-public abstract class AbstractBaseEntity implements Serializable{
+public abstract class AbstractBaseEntity implements Serializable {
 
-  @Column(name = "secure_id", nullable = false, unique = true)
+	/**
+	 * 
+	 */
+	private static final long serialVersionUID = -2119574796403647424L;
+
+	@Column(name = "secure_id", nullable = false, unique = true)
 	private String secureId=UUID.randomUUID().toString();
-  
-  @Column(name = "deleted", columnDefinition = "boolean default false")
-	private Boolean deleted;
+	
+	@Column(name="deleted", columnDefinition = "boolean default false")
+	private boolean deleted;
 }

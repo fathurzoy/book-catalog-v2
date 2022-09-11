@@ -12,5 +12,5 @@ import lombok.Data;
 @JsonNaming(PropertyNamingStrategies.SnakeCaseStrategy.class)
 public class AuthorResponseDTO {
   private String authorName;
-  private Long birhtDate;
+  private Long birthDate;
 }
