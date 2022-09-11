@@ -14,43 +14,43 @@ import com.subrutin.catalog.repository.impl.BookRepositoryImpl;
 @Configuration
 public class AppConfig {
   
-  @Bean 
-  public Author author(){
-    return new Author(1L, "Pramoedya Ananta Toer",null, false);
-  }
+  // @Bean 
+  // public Author author(){
+  //   return new Author(1L, "Pramoedya Ananta Toer",null, false);
+  // }
 
-  @Bean
-  public Book book1(Author author){
-    Book book = new Book();
-    book.setId(1L);
-    book.setTitle("Bumi Manusia");
-    book.setDescription("Bumi Manusia ok ok");
-    book.setAuthor(author);
+  // @Bean
+  // public Book book1(Author author){
+  //   Book book = new Book();
+  //   book.setId(1L);
+  //   book.setTitle("Bumi Manusia");
+  //   book.setDescription("Bumi Manusia ok ok");
+  //   book.setAuthor(author);
 
-    return book;
-  }
+  //   return book;
+  // }
 
-  @Bean
-  public Book book2(Author author){
-    Book book = new Book();
-    book.setId(2L);
-    book.setTitle("Bumi Manusia2");
-    book.setDescription("Bumi Manusia ok ok2");
-    book.setAuthor(author);
+  // @Bean
+  // public Book book2(Author author){
+  //   Book book = new Book();
+  //   book.setId(2L);
+  //   book.setTitle("Bumi Manusia2");
+  //   book.setDescription("Bumi Manusia ok ok2");
+  //   book.setAuthor(author);
 
-    return book;
-  }
+  //   return book;
+  // }
 
-  @Bean
-  public BookRepository bookRepository(Book book1, Book book2){
-    Map<Long, Book> bookMap = new HashMap<Long, Book>();
-    bookMap.put(1L,book1);
-    bookMap.put(2L,book2);
+  // @Bean
+  // public BookRepository bookRepository(Book book1, Book book2){
+  //   Map<Long, Book> bookMap = new HashMap<Long, Book>();
+  //   bookMap.put(1L,book1);
+  //   bookMap.put(2L,book2);
 
-    BookRepositoryImpl  bookRepository = new BookRepositoryImpl();
-    bookRepository.setBookMap(bookMap);
+  //   BookRepositoryImpl  bookRepository = new BookRepositoryImpl();
+  //   bookRepository.setBookMap(bookMap);
     
-    return bookRepository;
-  }
+  //   return bookRepository;
+  // }
 
 }

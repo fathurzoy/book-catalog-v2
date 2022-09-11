@@ -1,12 +1,15 @@
 package com.subrutin.catalog.domain;
 
+import java.io.Serializable;
 import java.time.LocalDate;
+import java.util.UUID;
 
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
+import javax.persistence.Index;
 import javax.persistence.SequenceGenerator;
 import javax.persistence.Table;
 
@@ -26,7 +29,7 @@ import lombok.NoArgsConstructor;
 // @DynamicUpdate
 @SQLDelete(sql = "UPDATE author SET deleted = true WHERE id = ?")
 @Where(clause = "deleted=false")
-public class Author {
+public class Author extends AbstractBaseEntity{
 	
 	// postgre -> bigserial
 	// mysql -> autoincrement
@@ -48,7 +51,4 @@ public class Author {
 	
 	@Column(name = "birth_date", nullable = false)
 	private LocalDate birthDate;
-
-	@Column(name = "deleted", columnDefinition = "boolean default false")
-	private Boolean deleted;
 }
