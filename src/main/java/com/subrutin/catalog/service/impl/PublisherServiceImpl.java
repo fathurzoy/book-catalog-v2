@@ -1,7 +1,6 @@
 package com.subrutin.catalog.service.impl;
 
 import java.util.List;
-import java.util.stream.Collector;
 import java.util.stream.Collectors;
 
 import org.apache.commons.lang3.StringUtils;
@@ -12,8 +11,9 @@ import org.springframework.data.domain.Sort;
 import org.springframework.stereotype.Service;
 
 import com.subrutin.catalog.domain.Publisher;
-import com.subrutin.catalog.dto.PublisherListResponseDTO;
 import com.subrutin.catalog.dto.PublisherCreateRequestDTO;
+import com.subrutin.catalog.dto.PublisherListResponseDTO;
+import com.subrutin.catalog.dto.PublisherReponseDTO;
 import com.subrutin.catalog.dto.PublisherUpdateRequestDTO;
 import com.subrutin.catalog.dto.ResultPageResponseDTO;
 import com.subrutin.catalog.exception.BadRequestException;
@@ -69,6 +69,21 @@ public class PublisherServiceImpl implements PublisherService{
 
 
     return PaginationUtil.createResultPageDTO(dtos, pageResult.getTotalElements(), pageResult.getTotalPages());
+  }
+
+  @Override
+  public Publisher findPublisher(String publisherId) {
+    // TODO Auto-generated method stub
+    return publisherRepository.findBySecureId(publisherId)
+    .orElseThrow(()-> new BadRequestException("invalid.publisher_id"));
+  }
+
+  @Override
+  public PublisherReponseDTO constructDTO(Publisher publisher) {
+    PublisherReponseDTO dto = new PublisherReponseDTO();
+    dto.setPublisherId(publisher.getSecureId());
+    dto.setPublisherName(publisher.getName());
+    return dto;
   }
   
 }
