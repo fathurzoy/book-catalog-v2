@@ -13,10 +13,12 @@ import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 
+import com.subrutin.catalog.annotation.LogThisMethod;
 import com.subrutin.catalog.dto.PublisherCreateRequestDTO;
 import com.subrutin.catalog.dto.PublisherListResponseDTO;
 import com.subrutin.catalog.dto.PublisherUpdateRequestDTO;
 import com.subrutin.catalog.dto.ResultPageResponseDTO;
+import com.subrutin.catalog.exception.BadRequestException;
 import com.subrutin.catalog.service.PublisherService;
 
 import lombok.AllArgsConstructor;
@@ -40,6 +42,7 @@ public class PublisherResource {
     return ResponseEntity.ok().build();
   }
 
+  @LogThisMethod
   @GetMapping("/v1/publisher")
   public ResponseEntity<ResultPageResponseDTO<PublisherListResponseDTO>> findPublisherList(
     @RequestParam(name = "pages", required = true, defaultValue = "0") Integer pages,
@@ -48,6 +51,8 @@ public class PublisherResource {
     @RequestParam(name = "direction", required = true, defaultValue = "asc") String direction,
     @RequestParam(name = "publisherName", required = false) String publisherName
   ){
+
+    if(pages<0) throw new BadRequestException("invalid pages");
     return ResponseEntity.ok().body(publisherService.findPublisherList(pages, limit, sortBy, direction, publisherName));
   }
 }
