@@ -2,6 +2,8 @@ package com.subrutin.catalog.service.impl;
 
 import java.time.LocalDate;
 import java.util.List;
+import java.util.Map;
+import java.util.function.Function;
 import java.util.stream.Collectors;
 
 import org.springframework.stereotype.Service;
@@ -63,7 +65,17 @@ public class AuthorServiceImpl implements AuthorService {
 	public void updateAuthor(String authorId, AuthorUpdateRequestDTO dto) {
 		Author author = authorRepository.findBySecureId(authorId)
 				.orElseThrow(() -> new BadRequestException("invalid.authorId"));
-		author.setName(dto.getAuthorName() == null ? author.getName() : dto.getAuthorName());
+		Map<Long, Address> addressMap = author.getAddresses().stream().map(a->a)
+				.collect(Collectors.toMap(Address::getId, Function.identity()));
+		List<Address> addresses = dto.getAddresses().stream().map(a->{
+			Address address =	addressMap.get(a.getAddressId());
+			address.setCityName(a.getCityName());
+			address.setStreetName(a.getStreetName());
+			address.setZipCode(a.getZipCode());
+			return address;
+		}).collect(Collectors.toList());
+		author.setAddresses(addresses);
+ 		author.setName(dto.getAuthorName() == null ? author.getName() : dto.getAuthorName());
 		author.setBirthDate(
 				dto.getBirthDate() == null ? author.getBirthDate() : LocalDate.ofEpochDay(dto.getBirthDate()));
 
